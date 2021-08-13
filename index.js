@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer')
 const consoleTable = require('console.table');
+const roles = [];
 
 // MySQL Connection
 const connection = mysql.createConnection({
@@ -39,7 +40,7 @@ const start = () => {
                         message: 'Which department?',
                         choices: depts
                     }).then((response) => {
-                        let dept = response.action;
+                        let department = response.action;
                         employeeByDepartment(response);
                     })
             }
@@ -73,7 +74,7 @@ const start = () => {
             }
             else if (response.action === 'Update current employee manager') {
                 //get employee and update sql manager
-                findEmployeeMgr();
+                findEmployeeManager();
             }
             else if (response.action === 'Add new department') {
                 addDepartment();
@@ -86,3 +87,21 @@ const start = () => {
             }
         });
 };
+
+const allEmployees = () => {
+    connection.query(`
+    SELECT CONCAT(e.first_name, " ", e.last_name) AS Employee,title,salary,name,CONCAT(A.first_name, " ",A.last_name) AS ManagerName 
+    FROM employee e 
+    LEFT JOIN role R 
+    on e.role_id = R.id 
+    LEFT JOIN department D 
+    on r.department_id = D.id 
+    LEFT JOIN employee A 
+    on e.manager_id = a.id`, (err, res) => {
+        if (err) throw err;
+        console.table('Current Employees', res);
+        start();
+    });
+
+};
+
