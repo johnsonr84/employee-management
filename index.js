@@ -104,6 +104,24 @@ const allEmployees = () => {
     });
 };
 
+const employeeByRole = (response) => {
+    let employeeRole = response.action;
+    connection.query(`
+            SELECT CONCAT(e.first_name, " ", e.last_name) AS Employee,title,salary,name AS Department,CONCAT(A.first_name, " ",A.last_name) AS ManagerName 
+            FROM employee e 
+            LEFT JOIN role r
+            on e.role_id = r.id
+            LEFT JOIN employee A 
+            on e.manager_id = a.id 
+            LEFT JOIN department d 
+            on r.department_id = d.id 
+            where r.title = '${employeeRole}'`, (err, res) => {
+        if (err) throw err;
+        console.table('Current Employees by role', res);
+        start();
+    });
+}
+
 const employeeByDepartment = (response) => {
     let department = response.action;
     connection.query(`
