@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const inquirer = require('inquirer')
 const consoleTable = require('console.table');
 
-// node.js driver for mysql
+// MySQL Connection
 const connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
@@ -11,9 +11,10 @@ const connection = mysql.createConnection({
     database: 'employeeTrackerDB',
 });
 
-// establishes connection
-connection.connect((err) => {
+// Establishes connection
+connection.connect(function (err) {
     if (err) throw err;
-    console.log(`connected as id ${connection.threadId}`);
-    connection.end();
+    start();
   });
+
+  
