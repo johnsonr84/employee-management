@@ -105,7 +105,7 @@ const allEmployees = () => {
 };
 
 const employeeByDepartment = (response) => {
-    let dept = response.action;
+    let department = response.action;
     connection.query(`
     SELECT CONCAT(e.first_name, " ", e.last_name) AS Employee,title,salary,name,CONCAT(A.first_name, " ",A.last_name) AS ManagerName 
     FROM employee e 
@@ -115,9 +115,45 @@ const employeeByDepartment = (response) => {
     on e.manager_id = a.id 
     LEFT JOIN department d 
     on r.department_id = d.id 
-    where d.name = '${dept}'`, (err, res) => {
+    where d.name = '${department}'`, (err, res) => {
         if (err) throw err;
         console.table('Current Employees by department', res);
         start();
     });
+}
+
+const employeeByManager = () => {
+
+    inquirer
+        .prompt([
+            {
+                name: 'first_name',
+                type: 'input',
+                message: 'What is the managers first name?'
+            },
+            {
+                name: 'last_name',
+                type: 'input',
+                message: 'What is the managers last name?'
+            }
+        ]).then((response) => {
+            let managerFirst = response.first_name;
+            let managerLast = response.last_name;
+
+            connection.query(`
+            SELECT CONCAT(e.first_name, " ", e.last_name) AS Employee,title,salary,name,CONCAT(A.first_name, " ",A.last_name) AS ManagerName 
+            FROM employee e 
+            LEFT JOIN role r
+            on e.role_id = r.id
+            LEFT JOIN employee A 
+            on e.manager_id = a.id 
+            LEFT JOIN department d 
+            on r.department_id = d.id
+            Where e.manager_id 
+            IN (SELECT e.id from employee e where first_name = '${managerFirst}' and last_name = '${managerLast}')`, (err, res) => {
+                if (err) throw err;
+                console.table('Current Employees by Manager', res);
+                start();
+            });
+        })
 }
