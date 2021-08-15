@@ -141,7 +141,6 @@ const employeeByDepartment = (response) => {
 }
 
 const employeeByManager = () => {
-
     inquirer
         .prompt([
             {
@@ -173,5 +172,72 @@ const employeeByManager = () => {
                 console.table('Current Employees by Manager', res);
                 start();
             });
+        })
+}
+
+const newEmployee = () => {
+    inquirer
+        .prompt([
+            {
+                name: 'first_name',
+                type: 'input',
+                message: 'New employee first name?',
+            },
+            {
+                name: 'last_name',
+                type: 'input',
+                message: 'New employee last name?',
+            },
+            {
+                name: 'role',
+                type: 'list',
+                message: 'New employee title?',
+                choices: roles
+            },
+            {
+                name: 'managerF',
+                type: 'input',
+                message: 'Manager first name for new employee?',
+            },
+            {
+                name: 'managerL',
+                type: 'input',
+                message: 'Manager last name for new employee?',
+            }
+
+        ]).then((response) => {
+            console.log('Inserting New Employee Information\n');
+            let role = response.role;
+            let managerFirst = response.managerFirst;
+            let managerLast = response.managerLast;
+            let roleID = "";
+            let managerID = "";
+
+            connection.query(`SELECT employee.id, first_name, last_name, title FROM employee LEFT JOIN role on employee.role_id = role.id WHERE employee.first_name = '${mgrF}'  AND employee.last_name = '${mgrL}'`, (err, res) => {
+
+                if (err) throw err;
+                managerID = res[0].id
+                connection.query(`SELECT id FROM role WHERE title = '${role}'`, (err, res) => {
+                    if (err) throw err;
+                    roleID = res[0].id;
+
+                    connection.query(
+                        'INSERT INTO employee SET ?',
+                        {
+                            first_name: response.first_name,
+                            last_name: response.last_name,
+                            role_id: roleID,
+                            manager_id: mgrID
+
+                        },
+                        (err, res) => {
+                            if (err) throw err;
+                            console.log(`${res.affectedRows} employee added !\n`)
+                            start();
+                        }
+                    )
+                })
+            })
+
         })
 }
