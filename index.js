@@ -267,3 +267,21 @@ const findEmployee = (response => {
             })
         })
 })
+
+const deleteEmp = () => {
+    inquirer
+        .prompt([
+            {
+                name: 'id',
+                type: 'number',
+                message: 'In the above list, what is the employee id?'
+            }
+        ]).then((response) => {
+            let id = response.id;
+            connection.query(`DELETE FROM employee WHERE employee.id = ${id}`, (err, res) => {
+                if (err) throw err;
+                console.log('This employee has been removed');
+                start();
+            })
+        })
+}
