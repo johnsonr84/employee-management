@@ -311,3 +311,38 @@ const findEmployeeRole = (response) => {
             })
         })
 }
+
+const updateEmployee = () => {
+    inquirer
+        .prompt([
+            {
+                name: 'id',
+                type: 'number',
+                message: 'In the above list, what is the employee id?'
+            },
+            {
+                name: 'role',
+                type: 'list',
+                message: 'New employee title?',
+                choices: roles
+            },
+        ]).then((response) => {
+            let id = response.id;
+            let role = response.role;
+            let roleID = "";
+            
+            
+            console.log('Inserting New Employee Information\n');
+            
+            connection.query(`SELECT id FROM role WHERE title = '${role}'`, (err, response)=> {
+                roleID = response[0].id;
+                
+                connection.query(`UPDATE employee SET role_id = ${roleID} WHERE employee.id = ${id} `, (err, res) => {
+                    if (err) throw err;
+                    console.log('This employee information has been updated');
+                    start();  
+            })
+
+            })
+        })
+}
