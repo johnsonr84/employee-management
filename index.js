@@ -330,18 +330,18 @@ const updateEmployee = () => {
             let id = response.id;
             let role = response.role;
             let roleID = "";
-            
-            
+
+
             console.log('Inserting New Employee Information\n');
-            
-            connection.query(`SELECT id FROM role WHERE title = '${role}'`, (err, response)=> {
+
+            connection.query(`SELECT id FROM role WHERE title = '${role}'`, (err, response) => {
                 roleID = response[0].id;
-                
+
                 connection.query(`UPDATE employee SET role_id = ${roleID} WHERE employee.id = ${id} `, (err, res) => {
                     if (err) throw err;
                     console.log('This employee information has been updated');
-                    start();  
-            })
+                    start();
+                })
 
             })
         })
@@ -404,7 +404,24 @@ const updateManager = () => {
                         })
                     })
             });
-
         })
+}
 
+const addDepartment = () => {
+    inquirer
+        .prompt([
+            {
+                name: 'department',
+                type: 'input',
+                message: 'What is the name of the department?'
+            },
+
+        ]).then((response) => {
+
+            connection.query(`INSERT INTO department (name) VALUES ('${response.department}') `, (err, res) => {
+                if (err) throw err;
+                console.log('This department has been added');
+                getUpdate();
+            })
+        })
 }
