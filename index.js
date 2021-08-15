@@ -373,3 +373,38 @@ const findEmployeeManager = (response) => {
         })
 }
 
+const updateManager = () => {
+    inquirer
+        .prompt([
+            {
+                name: 'id',
+                type: 'number',
+                message: 'In the above list, what is the employee id?'
+            },
+
+        ]).then((response) => {
+            let id = response.id;
+            connection.query('SELECT employee.id, first_name, last_name, title, name FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id;', (err, res) => {
+                if (err) throw err;
+
+                console.table('Current Employees', res);
+                inquirer
+                    .prompt([
+                        {
+                            name: 'mgr_id',
+                            type: 'number',
+                            message: 'In the above list, what is the new manager id?'
+                        }
+                    ]).then((response) => {
+                        const mgrId = response.mgr_id;
+                        connection.query(`UPDATE employee SET manager_id = ${mgrId} WHERE employee.id = ${id} `, (err, res) => {
+                            if (err) throw err;
+                            console.log('This employee information has been updated');
+                            start();
+                        })
+                    })
+            });
+
+        })
+
+}
