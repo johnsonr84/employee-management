@@ -346,3 +346,30 @@ const updateEmployee = () => {
             })
         })
 }
+
+const findEmployeeManager = (response) => {
+    inquirer
+        .prompt([
+            {
+                name: 'first_name',
+                type: 'input',
+                message: 'What is the employee first name?'
+            },
+            {
+                name: 'last_name',
+                type: 'input',
+                message: 'What is the employee last name?'
+            }
+        ]).then((response) => {
+            let first_name = response.first_name;
+            let last_name = response.last_name;
+
+            connection.query(`SELECT employee.id, first_name, last_name, title FROM employee LEFT JOIN role on employee.role_id = role.id WHERE employee.first_name = '${first_name}'  AND employee.last_name = '${last_name}'`, (err, res) => {
+                if (err) throw err;
+
+                console.table('Matching Employees', res);
+                updateManager();
+            })
+        })
+}
+
