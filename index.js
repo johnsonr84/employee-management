@@ -425,3 +425,45 @@ const addDepartment = () => {
             })
         })
 }
+
+const addRole = () => {
+    inquirer
+        .prompt([
+            {
+                name: 'role',
+                type: 'input',
+                message: 'What is the title of the new role?'
+            },
+            {
+                name: 'salary',
+                type: 'integer',
+                message: 'What is the annual salary?'
+            },
+            {
+                name: 'department_id',
+                type: 'list',
+                message: 'Select the department for this new role:',
+                choices: depts
+            }
+
+        ]).then((response) => {
+            let departmentID = "";
+            connection.query(`SELECT id FROM department WHERE name = '${response.department_id}'`, (err, res) => {
+                departmentID = res[0].id;
+
+                connection.query('INSERT INTO role SET ?',
+                    {
+                        title: response.role,
+                        salary: response.salary,
+                        department_id: departmentID
+                    },
+
+                    (err, res) => {
+                        if (err) throw err;
+                        console.log(`${res.affectedRows} employee added !\n`)
+                        getUpdate();
+                    }
+                )
+            })
+        })
+}
