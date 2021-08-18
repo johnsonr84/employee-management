@@ -43,14 +43,16 @@ assignment 12
     <tr>
       <td>employee-management directory screenshot</td>
     </tr>
-      <tr>
-      <td>employee-management video demo</td>
-    </tr>
     <tr>
       <td><img src="assets/img/emp-directory-demo.png" height=auto alt="screenshot of employee-management directory"></td>
     </tr>
+  </table>
+  <table>
+    <tr>
+      <td>employee-management video demo</td>
+    </tr>
      <tr>
-      <td><img src="assets/img/emp-directory-demo.gif" height=auto alt="gif demo of employee-management directory"></td>
+      <td><img src="assets/img/emp-directory-demo.gif" width=100vw alt="gif demo of employee-management directory"></td>
     </tr>
   </table>
 
