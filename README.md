@@ -40,12 +40,18 @@ assignment 12
 
   ## Mock-Up
   <table>
-  <tr>
-    <td>employee-management</td>
-  </tr>
-  <tr>
-    <td><img src="assets/img/emp-directory-demo.png" height=auto alt="screenshot of employee-management directory"></td>
-  </tr>
+    <tr>
+      <td>employee-management directory screenshot</td>
+    </tr>
+      <tr>
+      <td>employee-management video demo</td>
+    </tr>
+    <tr>
+      <td><img src="assets/img/emp-directory-demo.png" height=auto alt="screenshot of employee-management directory"></td>
+    </tr>
+     <tr>
+      <td><img src="assets/img/emp-directory-demo.mp4" height=auto alt="mp4 demo of employee-management directory"></td>
+    </tr>
   </table>
 
   ## Installation 
