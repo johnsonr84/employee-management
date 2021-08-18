@@ -36,7 +36,7 @@ assignment 12
   https://github.com/johnsonr84/employee-management
 
   ## Deployment
-  N/A
+  Link to walk-through [video](https://drive.google.com/file/d/1dM8aOmrtdkf3IOSXF8wNFmtPjB2r6fya/view)
 
   ## Mock-Up
   <table>
@@ -49,7 +49,7 @@ assignment 12
   </table>
   <table>
     <tr>
-      <td>employee-management video demo</td>
+      <td>gif demo (See high qlt video link above)</td>
     </tr>
      <tr>
       <td><img src="assets/img/emp-directory-demo.gif" height=400px alt="gif demo of employee-management directory"></td>
