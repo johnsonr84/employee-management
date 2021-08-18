@@ -44,7 +44,7 @@ assignment 12
     <td>employee-management</td>
   </tr>
   <tr>
-    <td><img src="assets/img/emp-directory-demo.png" height=300 alt="screenshot of employee-management directory"></td>
+    <td><img src="assets/img/emp-directory-demo.png" height=auto alt="screenshot of employee-management directory"></td>
   </tr>
   </table>
 
