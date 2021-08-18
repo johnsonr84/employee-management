@@ -52,7 +52,7 @@ assignment 12
       <td>employee-management video demo</td>
     </tr>
      <tr>
-      <td><img src="assets/img/emp-directory-demo.gif" width=100vw alt="gif demo of employee-management directory"></td>
+      <td><img src="assets/img/emp-directory-demo.gif" height=400px alt="gif demo of employee-management directory"></td>
     </tr>
   </table>
 
